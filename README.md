@@ -1,73 +1,53 @@
-# flow chart lib
-https://reactflow.dev/docs/introduction/
+# Add main property
+package.json
+{
+  "name": "my-electron-app",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./public/electron.js",
+  "dependencies": {
+Electron’s preload script
+By default, the process running in your browser won’t be able to communicate with the Node.js process. Electron solves this problem by allowing the use of a preload script: a script that runs before the renderer process is loaded and has access to both renderer globals (e.g., window and document) and a Node.js environment.
 
-# Getting Started with Create React App
+In our electron.js script, we already specified that we expect a preload script to be loaded from <project-root>/public/preload.js. So, let’s create it:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# Update the homepage property
+We need to enforce Create React App to infer a relative root path in the generated HTML file. This is a requirement because we’re not going to serve the HTML file; it will be loaded directly by Electron. To do so, we can set the homepage property of the package.json to ./ (see Building For Relative Paths in the Create React App documentation for more details).
 
-In the project directory, you can run:
+package.json
+{
+  "name": "my-electron-app",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "./",
+  "main": "./public/electron.js",
+  "dependencies": {
 
-### `npm start`
+# Update browserslist’s targets
+Update the browserslist section of package.json to support only the latest Electron version. This ensures Webpack/Babel will only add the polyfills and features we strictly need, keeping the bundle size to the minimum.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+package.json
+"browserslist": {
+   "production": [
+      "last 1 electron version",
+   ],
+   "development": [
+      "last 1 electron version",
+   ]
+ },
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# Define a Content Security Policy
+A Content Security Policy (CSP) is an additional layer of protection against cross-site scripting attacks and data injection attacks. So I highly recommend to enable it in <project-root>/public/index.html.
+The following CSP will allow Electron to run only inline scripts (the ones injected in the HTML file by Create React App’s build process).
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+public/index.html
+   <meta name="theme-color" content="#000000" />
+   <meta
+     name="description"
+     content="Web site created using create-react-app"
+   />
+   <meta
+     http-equiv="Content-Security-Policy"
+     content="script-src 'self' 'unsafe-inline';"
+   />
