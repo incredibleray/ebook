@@ -1,3 +1,17 @@
+# build on a new device
+git clone
+npm run build
+cp electron.js build/
+edit the index.html in build/ and add 
+```
+<meta
+  http-equiv="Content-Security-Policy"
+  content="script-src 'self' 'unsafe-inline';"
+/>
+```
+after say, `<meta name="theme-color" content="#000000"/>`
+
+
 # Add main property
 package.json
 {
