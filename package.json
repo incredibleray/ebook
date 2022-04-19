@@ -1,9 +1,10 @@
 {
   "name": "electron-react-app",
   "version": "0.1.0",
+  "author": "hanotronics",
+  "description": "Hanotronics monitoring app",
   "private": true,
   "dependencies": {
-    "@mrblenny/react-flow-chart": "^0.0.14",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
@@ -24,8 +25,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "electron": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make --platform linux --targets @electron-forge/maker-deb"
+    "package": "electron-builder --dir",
+    "make": "electron-builder"
   },
   "eslintConfig": {
     "extends": [
@@ -44,9 +45,25 @@
   "devDependencies": {
     "@electron-forge/cli": "*",
     "@electron-forge/maker-deb": "*",
-    "concurrently": "^7.0.0",
     "electron": "^16.2.1",
     "electron-is-dev": "^2.0.0",
-    "wait-on": "^6.0.0"
+    "electron-builder": "^23.0.3"
+  },
+  "build": {
+    "appId": "com.electron.hanotronics",
+    "productName": "hanotronics Monitoring App",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "public"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
   }
 }
