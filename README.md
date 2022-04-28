@@ -10,6 +10,19 @@ electron-builder: https://www.electron.build/
 https://mmazzarolo.com/blog/2021-08-12-building-an-electron-application-using-create-react-app/
 https://www.section.io/engineering-education/desktop-application-with-react/
 
+# build on a new device
+git clone
+npm run build
+cp electron.js build/
+edit the index.html in build/ and add 
+```
+<meta
+  http-equiv="Content-Security-Policy"
+  content="script-src 'self' 'unsafe-inline';"
+/>
+```
+after say, `<meta name="theme-color" content="#000000"/>`
+
 
 # Add main property
 package.json
