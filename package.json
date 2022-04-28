@@ -15,6 +15,7 @@
     "react-dom": "^17.0.2",
     "react-flow-renderer": "^10.0.8",
     "react-scripts": "5.0.0",
+    "recharts": "^2.1.9",
     "web-vitals": "^2.1.4"
   },
   "homepage": "./",
@@ -26,7 +27,7 @@
     "eject": "react-scripts eject",
     "electron": "electron-forge start",
     "package": "electron-builder --dir",
-    "make": "electron-builder"
+    "make": "electron-builder -l"
   },
   "eslintConfig": {
     "extends": [
@@ -46,8 +47,8 @@
     "@electron-forge/cli": "*",
     "@electron-forge/maker-deb": "*",
     "electron": "^16.2.1",
-    "electron-is-dev": "^2.0.0",
-    "electron-builder": "^23.0.3"
+    "electron-builder": "^23.0.3",
+    "electron-is-dev": "^2.0.0"
   },
   "build": {
     "appId": "com.electron.hanotronics",

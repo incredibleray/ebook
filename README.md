@@ -1,3 +1,16 @@
+# thank you, devs and contributors of these libraries!
+react, 
+electron
+Create-react-app
+React-bootstrap: https://react-bootstrap.github.io/
+Recharts: https://github.com/recharts/recharts
+electron-builder: https://www.electron.build/
+
+## and authors of these articles
+https://mmazzarolo.com/blog/2021-08-12-building-an-electron-application-using-create-react-app/
+https://www.section.io/engineering-education/desktop-application-with-react/
+
+
 # Add main property
 package.json
 {
