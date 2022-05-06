@@ -14,14 +14,9 @@ https://www.section.io/engineering-education/desktop-application-with-react/
 git clone
 npm run build
 cp electron.js build/
-edit the index.html in build/ and add 
-```
-<meta
-  http-equiv="Content-Security-Policy"
-  content="script-src 'self' 'unsafe-inline';"
-/>
-```
-after say, `<meta name="theme-color" content="#000000"/>`
+~edit the index.html in build/ and add ~
+~`<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />`~
+~after say, `<meta name="theme-color" content="#000000"/>`~
 
 
 # Add main property

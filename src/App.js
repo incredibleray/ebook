@@ -6,47 +6,47 @@ import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Image from 'react-bootstrap/Image'
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
 const data = [
   {
-    name: 'Page A',
+    name: '1:00',
     太阳能: 4000,
     储能: 2400,
     电网: 2400,
   },
   {
-    name: 'Page B',
+    name: '2:00',
     太阳能: 3000,
     储能: 1398,
     电网: 2210,
   },
   {
-    name: 'Page C',
+    name: '3:00',
     太阳能: 2000,
     储能: 9800,
     电网: 2290,
   },
   {
-    name: 'Page D',
+    name: '4:00',
     太阳能: 2780,
     储能: 3908,
     电网: 2000,
   },
   {
-    name: 'Page E',
+    name: '5:00',
     太阳能: 1890,
     储能: 4800,
     电网: 2181,
   },
   {
-    name: 'Page F',
+    name: '6:00',
     太阳能: 2390,
     储能: 3800,
     电网: 2500,
   },
   {
-    name: 'Page G',
+    name: '7:00',
     太阳能: 3490,
     储能: 4300,
     电网: 2100,
@@ -70,19 +70,23 @@ function Page() {
   //   [setEdges]
   // );
   const chartheight=window.innerHeight*0.4;
-  const chartWidth=window.innerWidth*0.7;
+  const chartWidth=window.innerWidth*0.98;
 
   return (
   <Container fluid={true}>
       <Row>
-    <Col>口号</Col>
-    <Col style={{textAlign: 'right'}}>光储充一体系统
+    <Col style={{textAlign: 'center', fontSize: 'x-large'}}>用好新能源 让山更绿、水更清、天更蓝</Col>
+    <Col style={{textAlign: 'right'}}>好能光储充一体系统
     </Col>
   </Row>
   <Row>
     <Col><Image src="solarpanel.jpg" height="40%" width="60%" /></Col>
     <Col><Image src="solarpanel.jpg" height="40%" width="60%" /></Col>
-    <Col>2 of 2</Col>
+    <Col style={{textAlign: 'right'}}>
+    <p>太阳能 {data[data.length-1].太阳能} kWh</p>
+    <p>储能 {data[data.length-1].储能} kWh</p>
+    <p>电网 {data[data.length-1].电网} kWh</p>
+    </Col>
   </Row>
   <Row>
     <Col>        
@@ -101,6 +105,7 @@ function Page() {
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
+          <Legend layout="vertical" align="right" verticalAlign="middle" margin={{left: 5}}/>
           <Area type="monotone" dataKey="太阳能" stackId="1" stroke="#8884d8" fill="#8884d8" />
           <Area type="monotone" dataKey="储能" stackId="1" stroke="#82ca9d" fill="#82ca9d" />
           <Area type="monotone" dataKey="电网" stackId="1" stroke="#ffc658" fill="#ffc658" />
