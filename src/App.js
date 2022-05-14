@@ -7,6 +7,7 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Image from 'react-bootstrap/Image'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import {ButtonGroup, ToggleButton} from 'react-bootstrap';
 
 const data = [
   {
@@ -53,24 +54,19 @@ const data = [
   },
 ];
 
-function Page() {
-  // const [nodes, setNodes] = useState(initialNodes);
-  // const [edges, setEdges] = useState(initialEdges);
 
-  // const onNodesChange = useCallback(
-  //   (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
-  //   [setNodes]
-  // );
-  // const onEdgesChange = useCallback(
-  //   (changes) => setEdges((eds) => applyEdgeChanges(changes, eds)),
-  //   [setEdges]
-  // );
-  // const onConnect = useCallback(
-  //   (connection) => setEdges((eds) => addEdge(connection, eds)),
-  //   [setEdges]
-  // );
+function Page() {
+  const [checked, setChecked] = useState(false);
+  const [radioValue, setRadioValue] = useState('1');
+
+  const radios = [
+    { name: '小时', value: '1' },
+    { name: '天', value: '2' },
+    { name: '星期', value: '3' },
+  ];
+
   const chartheight=window.innerHeight*0.4;
-  const chartWidth=window.innerWidth*0.98;
+  const chartWidth=window.innerWidth*0.85;
 
   return (
   <Container fluid={true}>
@@ -110,6 +106,24 @@ function Page() {
           <Area type="monotone" dataKey="储能" stackId="1" stroke="#82ca9d" fill="#82ca9d" />
           <Area type="monotone" dataKey="电网" stackId="1" stroke="#ffc658" fill="#ffc658" />
         </AreaChart>
+        </Col>
+        <Col>
+        <ButtonGroup vertical={true}>
+        {radios.map((radio, idx) => (
+          <ToggleButton
+            key={idx}
+            id={`radio-${idx}`}
+            type="radio"
+            variant='outline-success'
+            name="radio"
+            value={radio.value}
+            checked={radioValue === radio.value}
+            onChange={(e) => setRadioValue(e.currentTarget.value)}
+          >
+            {radio.name}
+          </ToggleButton>
+        ))}
+      </ ButtonGroup>
         </Col>
   </Row>
   <Row>
