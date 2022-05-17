@@ -5,6 +5,7 @@ const createWindow = () => {
     show: false
     // fullscreen: true
   })
+  win.menuBarVisible=false;
   win.maximize();
   win.loadFile('build/index.html');
   // win.loadURL('http://localhost:3000');

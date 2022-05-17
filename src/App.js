@@ -65,34 +65,47 @@ function Page() {
     { name: '星期', value: '3' },
   ];
 
+  const videoHeight=window.innerHeight*0.3;
+  const videoWidth=window.innerWidth*0.7;
   const chartheight=window.innerHeight*0.4;
   const chartWidth=window.innerWidth*0.85;
+  const padWidth=window.innerWidth*0.1;
 
   return (
   <Container fluid={true}>
-      <Row>
-    <Col style={{textAlign: 'center', fontSize: 'x-large'}}>用好新能源 让山更绿、水更清、天更蓝</Col>
-    <Col style={{textAlign: 'right'}}>好能光储充一体系统
+      <Row >
+    <Col style={{textAlign: 'center', fontSize: 'xx-large'}}>用好新能源 让山更绿、水更清、天更蓝</Col>
+    </Row>
+    <Row>
+    <Col style={{textAlign: 'right', fontSize: 'large'}}>好能光储充一体系统
     </Col>
   </Row>
   <Row>
-    <Col><Image src="solarpanel.jpg" height="40%" width="60%" /></Col>
-    <Col><Image src="solarpanel.jpg" height="40%" width="60%" /></Col>
+    <Col></Col>
+    <Col>
+    <video controls height={videoHeight} 
+    width={videoWidth} 
+    autoplay loop>
+    <source src="testvideo.mp4" 
+            type="video/mp4" />
+ </video>
+    </Col>
     <Col style={{textAlign: 'right'}}>
-    <p>太阳能 {data[data.length-1].太阳能} kWh</p>
-    <p>储能 {data[data.length-1].储能} kWh</p>
-    <p>电网 {data[data.length-1].电网} kWh</p>
+    太阳能 {data[data.length-1].太阳能} kWh<br />
+    储能 {data[data.length-1].储能} kWh<br />
+    电网 {data[data.length-1].电网} kWh<br />
     </Col>
   </Row>
   <Row>
+    <Col></Col>
     <Col>        
     <AreaChart
           width={chartWidth}
           height={chartheight}
           data={data}
           margin={{
-            top: 10,
-            right: 30,
+            top: 0,
+            right: 20,
             left: 0,
             bottom: 0,
           }}
@@ -127,8 +140,12 @@ function Page() {
         </Col>
   </Row>
   <Row>
-    <Col>Hanotronics</Col>
-    <Col style={{textAlign: 'right'}}>湖州好能科技有限公司</Col>
+    <Col style={{textAlign: 'right', fontSize: 'large'}}>Hanotronics 湖州好能科技有限公司</Col>
+  </Row>
+  <Row>
+  <Col style={{textAlign: 'right', fontSize: 'large'}}>
+  {new Date().getFullYear()} 年 {new Date().getMonth() + 1} 月 {new Date().getDate()} 日
+  </Col>
   </Row>
   </Container>
   );

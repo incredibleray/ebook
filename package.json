@@ -27,7 +27,7 @@
     "eject": "react-scripts eject",
     "electron": "electron-forge start",
     "package": "electron-builder --dir",
-    "make": "electron-builder -w"
+    "make": "electron-builder -wl"
   },
   "eslintConfig": {
     "extends": [
