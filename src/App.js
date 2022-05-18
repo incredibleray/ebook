@@ -81,24 +81,24 @@ function Page() {
     </Col>
   </Row>
   <Row>
-    <Col></Col>
-    <Col>
+    <Col xs={1}></Col>
+    <Col xs={7}>
     <video controls height={videoHeight} 
-    width={videoWidth} 
+    // width={videoWidth} 
     autoplay loop>
     <source src="testvideo.mp4" 
             type="video/mp4" />
  </video>
     </Col>
-    <Col style={{textAlign: 'right'}}>
+    <Col xs={4} style={{textAlign: 'right'}}>
     太阳能 {data[data.length-1].太阳能} kWh<br />
     储能 {data[data.length-1].储能} kWh<br />
     电网 {data[data.length-1].电网} kWh<br />
     </Col>
   </Row>
   <Row>
-    <Col></Col>
-    <Col>        
+    <Col xs={1}></Col>
+    <Col xs={10}>        
     <AreaChart
           width={chartWidth}
           height={chartheight}
@@ -120,7 +120,7 @@ function Page() {
           <Area type="monotone" dataKey="电网" stackId="1" stroke="#ffc658" fill="#ffc658" />
         </AreaChart>
         </Col>
-        <Col>
+        <Col xs={1}>
         <ButtonGroup vertical={true}>
         {radios.map((radio, idx) => (
           <ToggleButton
