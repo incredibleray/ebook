@@ -52,6 +52,36 @@ const data = [
     储能: 4300,
     电网: 2100,
   },
+  {
+    name: '8:00',
+    太阳能: 2000,
+    储能: 9800,
+    电网: 2290,
+  },
+  {
+    name: '9:00',
+    太阳能: 2780,
+    储能: 3908,
+    电网: 2000,
+  },
+  {
+    name: '10:00',
+    太阳能: 1890,
+    储能: 4800,
+    电网: 2181,
+  },
+  {
+    name: '11:00',
+    太阳能: 2390,
+    储能: 3800,
+    电网: 2500,
+  },
+  {
+    name: '12:00',
+    太阳能: 3490,
+    储能: 4300,
+    电网: 2100,
+  },
 ];
 
 
@@ -68,21 +98,23 @@ function Page() {
   const videoHeight=window.innerHeight*0.3;
   const videoWidth=window.innerWidth*0.7;
   const chartheight=window.innerHeight*0.4;
-  const chartWidth=window.innerWidth*0.85;
+  const chartWidth=window.innerWidth/12*9;
   const padWidth=window.innerWidth*0.1;
 
   return (
   <Container fluid={true}>
       <Row >
-    <Col style={{textAlign: 'center', fontSize: 'xx-large'}}>用好新能源 让山更绿、水更清、天更蓝</Col>
+    <Col style={{textAlign: 'center', fontSize: 'xxx-large', fontFamily: 'Microsoft YaHei'}}>用好新能源 让山更青、水更绿、天更蓝</Col>
     </Row>
     <Row>
-    <Col style={{textAlign: 'right', fontSize: 'large'}}>好能光储充一体系统
+    <Col xs={8}></Col>
+    <Col xs={3} style={{textAlign: 'right', fontSize: 'xx-large'}}>好能光储充一体系统
     </Col>
+    <Col xs={1}></Col>
   </Row>
   <Row>
     <Col xs={1}></Col>
-    <Col xs={7}>
+    <Col xs={6}>
     <video controls height={videoHeight} 
     // width={videoWidth} 
     autoplay loop>
@@ -90,15 +122,18 @@ function Page() {
             type="video/mp4" />
  </video>
     </Col>
-    <Col xs={4} style={{textAlign: 'right'}}>
-    太阳能 {data[data.length-1].太阳能} kWh<br />
+    <Col xs={2}></Col>
+    <Col xs={2} style={{textAlign: 'right', fontSize: 'x-large'}}>
+    光伏 {data[data.length-1].太阳能} kWh<br />
     储能 {data[data.length-1].储能} kWh<br />
-    电网 {data[data.length-1].电网} kWh<br />
+    电能 {data[data.length-1].电网} kWh<br />
+    充电 {data[data.length-1].电网} kWh
     </Col>
+    <Col xs={1}></Col>
   </Row>
   <Row>
     <Col xs={1}></Col>
-    <Col xs={10}>        
+    <Col xs={9}>        
     <AreaChart
           width={chartWidth}
           height={chartheight}
@@ -120,8 +155,9 @@ function Page() {
           <Area type="monotone" dataKey="电网" stackId="1" stroke="#ffc658" fill="#ffc658" />
         </AreaChart>
         </Col>
-        <Col xs={1}>
-        <ButtonGroup vertical={true}>
+        <Col xs={2}>
+          <br/><br/>
+        <ButtonGroup vertical={true} style={{paddingLeft: "55px"}}>
         {radios.map((radio, idx) => (
           <ToggleButton
             key={idx}
@@ -140,12 +176,14 @@ function Page() {
         </Col>
   </Row>
   <Row>
-    <Col style={{textAlign: 'right', fontSize: 'large'}}>Hanotronics 湖州好能科技有限公司</Col>
+    <Col style={{textAlign: 'right', fontSize: 'xx-large'}}>Hanotronics 湖 州 好 能 科 技 有 限 公 司</Col>
   </Row>
   <Row>
-  <Col style={{textAlign: 'right', fontSize: 'large'}}>
+  <Col xs={8}></Col>
+  <Col xs={3} style={{textAlign: 'right', fontSize: 'large'}}>
   {new Date().getFullYear()} 年 {new Date().getMonth() + 1} 月 {new Date().getDate()} 日
   </Col>
+  <Col xs={1}></Col>
   </Row>
   </Container>
   );
