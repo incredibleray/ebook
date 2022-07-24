@@ -8,6 +8,7 @@ import Row from 'react-bootstrap/Row'
 import Image from 'react-bootstrap/Image'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import {ButtonGroup, ToggleButton} from 'react-bootstrap';
+import SqlDebug from './sql';
 
 const data = [
   {
@@ -101,7 +102,8 @@ function Page() {
   const chartWidth=window.innerWidth/12*9;
   const padWidth=window.innerWidth*0.1;
 
-  return (
+  return (<div>
+    <SqlDebug />
   <Container fluid={true}>
       <Row >
     <Col style={{textAlign: 'center', fontSize: 'xxx-large', fontFamily: 'Microsoft YaHei'}}>用好新能源 让山更青、水更绿、天更蓝</Col>
@@ -186,7 +188,7 @@ function Page() {
   <Col xs={1}></Col>
   </Row>
   </Container>
-  );
+  </div>);
 }
 
 export default Page;
