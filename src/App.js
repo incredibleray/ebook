@@ -8,7 +8,6 @@ import Row from 'react-bootstrap/Row'
 import Image from 'react-bootstrap/Image'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import {ButtonGroup, ToggleButton} from 'react-bootstrap';
-import SqlDebug from './sql';
 
 const data = [
   {
@@ -103,7 +102,6 @@ function Page() {
   const padWidth=window.innerWidth*0.1;
 
   return (<div>
-    <SqlDebug />
   <Container fluid={true}>
       <Row >
     <Col style={{textAlign: 'center', fontSize: 'xxx-large', fontFamily: 'Microsoft YaHei'}}>用好新能源 让山更青、水更绿、天更蓝</Col>
@@ -119,7 +117,7 @@ function Page() {
     <Col xs={6}>
     <video controls height={videoHeight} 
     // width={videoWidth} 
-    autoplay loop>
+    autoPlay loop>
     <source src="testvideo.mp4" 
             type="video/mp4" />
  </video>
