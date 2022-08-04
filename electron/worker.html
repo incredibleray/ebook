@@ -5,13 +5,10 @@
     <title>I'm a hidden worker</title>
   </head>
   <body>    
+    <script src="renderer.js"></script> 
     <script>
-      // your background code here
-      const electron = require('electron');
-const ipcRenderer = electron.ipcRenderer;
-
         setTimeout(
-            ()=>{ipcRenderer.send('asynchronous-message', {});}, 5000);
+            ()=>{send('asynchronous-message', "");}, 5000);
   
     </script>
   </body>

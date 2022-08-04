@@ -10,7 +10,7 @@ const createWindow = () => {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      devTools:true
+      // devTools:true
     },
     
   })
@@ -24,8 +24,10 @@ const createWindow = () => {
 
   // create hidden worker window
   workerWindow = new BrowserWindow({
-    show: false,
-    webPreferences: { nodeIntegration: true }
+    show: true,
+    webPreferences: { nodeIntegration: true,
+      devTools:true
+    }
   });
   workerWindow.loadFile('electron/worker.html');
 }
@@ -45,7 +47,13 @@ ipcMain.on('asynchronous-message', (event, arg) => {
   database.all(sql, (err, rows) => {
       console.log(err);
       console.log(rows);
-      fs.writeFile("data.txt", rows);
+      fs.writeFile("./data.txt", JSON.stringify(rows), err => {
+        if (err) {
+          console.error(err);
+        }
+        // file written successfully
+      });
+
   });
 
   
