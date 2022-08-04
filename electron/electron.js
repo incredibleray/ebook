@@ -25,8 +25,10 @@ const createWindow = () => {
   // create hidden worker window
   workerWindow = new BrowserWindow({
     show: true,
-    webPreferences: { nodeIntegration: true,
-      devTools:true
+    webPreferences: { 
+      nodeIntegration: true,
+            contextIsolation: false,
+            devTools:true
     }
   });
   workerWindow.loadFile('electron/worker.html');

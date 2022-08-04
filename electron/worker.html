@@ -2,13 +2,14 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>I'm a hidden worker</title>
+    <title>db calls</title>
   </head>
   <body>    
-    <script src="renderer.js"></script> 
     <script>
-        setTimeout(
-            ()=>{send('asynchronous-message', "");}, 5000);
+      const electron = require("electron");
+        const ipc = electron.ipcRenderer;
+        setInterval(
+            ()=>{ipc.send('asynchronous-message', "");}, 5000);
   
     </script>
   </body>
