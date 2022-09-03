@@ -9,7 +9,7 @@
       const electron = require("electron");
         const ipc = electron.ipcRenderer;
         setInterval(
-            ()=>{ipc.send('asynchronous-message', "");}, 5000);
+            ()=>{ipc.send('asynchronous-message', "");}, 60000);
   
     </script>
   </body>

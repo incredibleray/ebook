@@ -1,15 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Image from 'react-bootstrap/Image'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import {ButtonGroup, ToggleButton} from 'react-bootstrap';
+import axios from 'axios';
 
-const data = [
+const graphData = [
   {
     name: '1:00',
     太阳能: 4000,
@@ -84,10 +85,26 @@ const data = [
   },
 ];
 
-
 function Page() {
   const [checked, setChecked] = useState(false);
   const [radioValue, setRadioValue] = useState('1');
+  const [realtimeData, setRealtimeData]=useState({});
+
+  const syncRealtimeData=()=>{
+    axios.get("data.txt").then((res)=>{
+      setRealtimeData({
+        ...realtimeData,
+        ...res.data});
+    });
+  };
+  useEffect(() => {
+    syncRealtimeData();
+    setInterval(syncRealtimeData, 60000);
+    
+    // Remove event listener on cleanup
+    // return () => window.removeEventListener("resize", handleResize);
+
+  }, [])
 
   const radios = [
     { name: '小时', value: '1' },
@@ -124,10 +141,11 @@ function Page() {
     </Col>
     <Col xs={2}></Col>
     <Col xs={2} style={{textAlign: 'right', fontSize: 'x-large'}}>
-    光伏 {data[data.length-1].太阳能} kWh<br />
-    储能 {data[data.length-1].储能} kWh<br />
-    电能 {data[data.length-1].电网} kWh<br />
-    充电 {data[data.length-1].电网} kWh
+    光伏 {realtimeData.solarPower} kW<br />
+    储能 {realtimeData.batteryPower} kW<br />
+    电能 {realtimeData.有功功率} kW<br />
+    充电 {realtimeData.累计充电电量} kWh
+    放电 {realtimeData.累计放电电量} kWh
     </Col>
     <Col xs={1}></Col>
   </Row>
@@ -137,7 +155,7 @@ function Page() {
     <AreaChart
           width={chartWidth}
           height={chartheight}
-          data={data}
+          data={graphData}
           margin={{
             top: 0,
             right: 20,
