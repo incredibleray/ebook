@@ -20,7 +20,7 @@
     "web-vitals": "^2.1.4"
   },
   "homepage": "./",
-  "main": "electron/electron.js",
+  "main": "public/electron.js",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -29,7 +29,7 @@
     "electron-old": "electron-forge start",
     "electron": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
     "package": "electron-builder --dir",
-    "make": "electron-builder -wl"
+    "make": "electron-builder -l"
   },
   "eslintConfig": {
     "extends": [
@@ -63,9 +63,6 @@
     ],
     "directories": {
       "buildResources": "public"
-    },
-    "win": {
-      "target": "nsis"
     },
     "linux": {
       "target": "AppImage"

@@ -8,102 +8,31 @@ import Row from 'react-bootstrap/Row'
 import Image from 'react-bootstrap/Image'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import {ButtonGroup, ToggleButton} from 'react-bootstrap';
-import axios from 'axios';
-
-const graphData = [
-  {
-    name: '1:00',
-    太阳能: 4000,
-    储能: 2400,
-    电网: 2400,
-  },
-  {
-    name: '2:00',
-    太阳能: 3000,
-    储能: 1398,
-    电网: 2210,
-  },
-  {
-    name: '3:00',
-    太阳能: 2000,
-    储能: 9800,
-    电网: 2290,
-  },
-  {
-    name: '4:00',
-    太阳能: 2780,
-    储能: 3908,
-    电网: 2000,
-  },
-  {
-    name: '5:00',
-    太阳能: 1890,
-    储能: 4800,
-    电网: 2181,
-  },
-  {
-    name: '6:00',
-    太阳能: 2390,
-    储能: 3800,
-    电网: 2500,
-  },
-  {
-    name: '7:00',
-    太阳能: 3490,
-    储能: 4300,
-    电网: 2100,
-  },
-  {
-    name: '8:00',
-    太阳能: 2000,
-    储能: 9800,
-    电网: 2290,
-  },
-  {
-    name: '9:00',
-    太阳能: 2780,
-    储能: 3908,
-    电网: 2000,
-  },
-  {
-    name: '10:00',
-    太阳能: 1890,
-    储能: 4800,
-    电网: 2181,
-  },
-  {
-    name: '11:00',
-    太阳能: 2390,
-    储能: 3800,
-    电网: 2500,
-  },
-  {
-    name: '12:00',
-    太阳能: 3490,
-    储能: 4300,
-    电网: 2100,
-  },
-];
+import RealtimeData from './realtimeData';
+const { ipcRenderer } = window.require("electron");
 
 function Page() {
   const [checked, setChecked] = useState(false);
   const [radioValue, setRadioValue] = useState('1');
-  const [realtimeData, setRealtimeData]=useState({});
+  const [graphData, setGraphData]=useState([])
 
-  const syncRealtimeData=()=>{
-    axios.get("data.txt").then((res)=>{
-      setRealtimeData({
-        ...realtimeData,
-        ...res.data});
-    });
-  };
+
   useEffect(() => {
-    syncRealtimeData();
-    setInterval(syncRealtimeData, 60000);
-    
-    // Remove event listener on cleanup
-    // return () => window.removeEventListener("resize", handleResize);
 
+    const job= setInterval(
+      async ()=>{
+        const data=await ipcRenderer.invoke('getGraphData');
+
+        let graphData=[]
+      for (let i=12; i>0; i--){
+        graphData.push({
+          time:i.toString()+":00",
+          ...(data[12-i])
+        })
+      }
+      setGraphData(graphData);
+      }, 60000);
+      return ()=>clearInterval(job);
   }, [])
 
   const radios = [
@@ -141,11 +70,7 @@ function Page() {
     </Col>
     <Col xs={2}></Col>
     <Col xs={2} style={{textAlign: 'right', fontSize: 'x-large'}}>
-    光伏 {realtimeData.solarPower} kW<br />
-    储能 {realtimeData.batteryPower} kW<br />
-    电能 {realtimeData.有功功率} kW<br />
-    充电 {realtimeData.累计充电电量} kWh
-    放电 {realtimeData.累计放电电量} kWh
+    <RealtimeData />
     </Col>
     <Col xs={1}></Col>
   </Row>
@@ -164,13 +89,13 @@ function Page() {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="time" />
           <YAxis />
           <Tooltip />
           <Legend layout="vertical" align="right" verticalAlign="middle" margin={{left: 5}}/>
-          <Area type="monotone" dataKey="太阳能" stackId="1" stroke="#8884d8" fill="#8884d8" />
-          <Area type="monotone" dataKey="储能" stackId="1" stroke="#82ca9d" fill="#82ca9d" />
-          <Area type="monotone" dataKey="电网" stackId="1" stroke="#ffc658" fill="#ffc658" />
+          <Area type="monotone" dataKey="光伏日发电量" stackId="1" stroke="#8884d8" fill="#8884d8" />
+          {/* <Area type="monotone" dataKey="储能" stackId="1" stroke="#82ca9d" fill="#82ca9d" />
+          <Area type="monotone" dataKey="电网" stackId="1" stroke="#ffc658" fill="#ffc658" /> */}
         </AreaChart>
         </Col>
         <Col xs={2}>
