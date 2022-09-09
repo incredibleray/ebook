@@ -16,11 +16,11 @@ const createWindow = () => {
   })
   win.menuBarVisible=false;
   win.maximize();
-  // win.loadFile('build/index.html');
-  win.loadURL('http://localhost:3000');
+  win.loadFile('build/index.html');
+  // win.loadURL('http://localhost:3000');
 
   win.show();
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
 }
 
 app.whenReady().then(() => {
@@ -82,7 +82,7 @@ ipcMain.handle('getGraphData', (event, arg) => {
     console.log(rows);
   
     graphData=rows;
-
-    return graphData;
   });
+
+  return graphData;
 });
