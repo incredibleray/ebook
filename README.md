@@ -2,13 +2,15 @@
 react, 
 electron
 Create-react-app
-React-bootstrap: https://react-bootstrap.github.io/
-Recharts: https://github.com/recharts/recharts
 electron-builder: https://www.electron.build/
 
 ## and authors of these articles
-https://mmazzarolo.com/blog/2021-08-12-building-an-electron-application-using-create-react-app/
-https://www.section.io/engineering-education/desktop-application-with-react/
+
+
+# video with scrolling transcript
+https://buddy.works/tutorials/displaying-caption-transcript-with-react
+https://www.metaview.ai/resources/blog/syncing-a-transcript-with-audio-in-react
+https://github.com/bbc/react-transcript-editor
 
 # build on a new device
 git clone
@@ -57,18 +59,3 @@ package.json
       "last 1 electron version",
    ]
  },
-
-# Define a Content Security Policy
-A Content Security Policy (CSP) is an additional layer of protection against cross-site scripting attacks and data injection attacks. So I highly recommend to enable it in <project-root>/public/index.html.
-The following CSP will allow Electron to run only inline scripts (the ones injected in the HTML file by Create React App’s build process).
-
-public/index.html
-   <meta name="theme-color" content="#000000" />
-   <meta
-     name="description"
-     content="Web site created using create-react-app"
-   />
-   <meta
-     http-equiv="Content-Security-Policy"
-     content="script-src 'self' 'unsafe-inline';"
-   />
