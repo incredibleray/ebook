@@ -7,7 +7,8 @@ electron-builder: https://www.electron.build/
 ## and authors of these articles
 
 
-# video with scrolling transcript
+# interactive transcript
+https://github.com/hyperaudio/hyperaudio-lite
 https://buddy.works/tutorials/displaying-caption-transcript-with-react
 https://www.metaview.ai/resources/blog/syncing-a-transcript-with-audio-in-react
 https://github.com/bbc/react-transcript-editor
