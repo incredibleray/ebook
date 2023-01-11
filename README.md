@@ -8,6 +8,7 @@ electron-builder: https://www.electron.build/
 
 
 # interactive transcript
+https://github.com/jwplayer/web-player-demos/tree/develop/demos/interactive-transcripts
 https://github.com/hyperaudio/hyperaudio-lite
 https://buddy.works/tutorials/displaying-caption-transcript-with-react
 https://www.metaview.ai/resources/blog/syncing-a-transcript-with-audio-in-react
