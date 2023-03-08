@@ -11,6 +11,32 @@ import {ButtonGroup, ToggleButton} from 'react-bootstrap';
 import RealtimeData from './realtimeData';
 const { ipcRenderer } = window.require("electron");
 
+function getGraphData(data) {
+  let graphData=[];
+
+  if ("solar" in data) {  
+    graphData=data.solar.map((v)=>({
+      time:v.时间戳.split("/")[1],
+      光伏日发电量:v.光伏日发电量
+    }));
+  }
+
+  if ("consumption" in data) {
+    for (let i=0; i<data.consumption.length; i++){
+      if (i<graphData.length) {
+        graphData[i]={...graphData[i], 日用电量:data.consumption[i].日用电量};
+      } else {
+        graphData.push({
+          time:data.consumption[i].时间戳.split("/")[1],
+          日用电量:data.consumption[i].日用电量
+        })
+      }
+    }
+  }
+
+  return graphData;
+}
+
 function Page() {
   const [checked, setChecked] = useState(false);
   const [radioValue, setRadioValue] = useState('1');
@@ -18,20 +44,16 @@ function Page() {
 
 
   useEffect(() => {
+    const updateGraphData=async ()=>{
+      const data=await ipcRenderer.invoke('getGraphData');
+
+    setGraphData(getGraphData(data));
+    };
+
+    updateGraphData();
 
     const job= setInterval(
-      async ()=>{
-        const data=await ipcRenderer.invoke('getGraphData');
-
-        let graphData=[]
-      for (let i=12; i>0; i--){
-        graphData.push({
-          time:i.toString()+":00",
-          ...(data[12-i])
-        })
-      }
-      setGraphData(graphData);
-      }, 60000);
+      updateGraphData, 60000);
       return ()=>clearInterval(job);
   }, [])
 
@@ -94,8 +116,8 @@ function Page() {
           <Tooltip />
           <Legend layout="vertical" align="right" verticalAlign="middle" margin={{left: 5}}/>
           <Area type="monotone" dataKey="光伏日发电量" stackId="1" stroke="#8884d8" fill="#8884d8" />
-          {/* <Area type="monotone" dataKey="储能" stackId="1" stroke="#82ca9d" fill="#82ca9d" />
-          <Area type="monotone" dataKey="电网" stackId="1" stroke="#ffc658" fill="#ffc658" /> */}
+          <Area type="monotone" dataKey="日用电量" stackId="1" stroke="#82ca9d" fill="#82ca9d" />
+          {/* <Area type="monotone" dataKey="电网" stackId="1" stroke="#ffc658" fill="#ffc658" /> */}
         </AreaChart>
         </Col>
         <Col xs={2}>

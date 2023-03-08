@@ -8,12 +8,15 @@ function RealtimeData() {
 
   useEffect(() => {
     // let job=setInterval(syncRealtimeData, 60000);
-  
+    const updateRealtimeData=async ()=>{
+      const data=await ipcRenderer.invoke('getRealtimeData');
+      setRealtimeData(data);
+    };
+
+    updateRealtimeData();
+
        const job= setInterval(
-            async ()=>{
-              const data=await ipcRenderer.invoke('getRealtimeData');
-              setRealtimeData(data);
-            }, 60000);
+            updateRealtimeData, 60000);
 
     return ()=>clearInterval(job);
   }, [])

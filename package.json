@@ -1,6 +1,6 @@
 {
   "name": "electron-react-app",
-  "version": "0.1.0",
+  "version": "0.1.38",
   "author": "hanotronics",
   "description": "Hanotronics monitoring app",
   "private": true,
@@ -24,12 +24,11 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "electron .",
     "eject": "react-scripts eject",
-    "electron-old": "electron-forge start",
     "electron": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
     "package": "electron-builder --dir",
-    "make": "electron-builder -l"
+    "make": "react-scripts build; electron-builder --dir; electron-builder -l"
   },
   "eslintConfig": {
     "extends": [
@@ -56,7 +55,7 @@
   },
   "build": {
     "appId": "com.electron.hanotronics",
-    "productName": "hanotronics Monitoring App",
+    "productName": "hanotronics",
     "files": [
       "build/**/*",
       "node_modules/**/*"
